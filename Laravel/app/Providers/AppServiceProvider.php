@@ -13,7 +13,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+     /*
+        view()->composer('frontend.master.layout',
+            function($view){
+               $view->with('categories', Category::all());
+            });
+
+          view()->composer('backend.master.layout',
+            function($view){
+                $view->with('currentUser', Auth::user());
+            });
+        */
     }
 
     /**

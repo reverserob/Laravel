@@ -6,7 +6,7 @@
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
 
         <link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
-
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <style>
             html, body {
                 height: 100%;
@@ -52,9 +52,14 @@
 
 
 
-                <a href="{{ url('/frontend') }}" class="waves-effect waves-light btn   teal lighten-2">
+                <a href="{{ url('/frontend') }}" class="waves-effect waves-light btn blue-text text-darken-2   yellow accent-2">
                 <i class="mdi-maps-local-bar left"></i>
                 Rob's Blog! </a>
+
+                <a href="{{ url('/backend') }}" class="waves-effect waves-light btn amber darken-4 ">
+                    <i class="material-icons left">thumb_up</i>
+                    Rob's Blog! BACKEND</a>
+                <br><br>
 
                 <a href="{{ url('/projects') }}" class="waves-effect waves-light btn   red accent-2">
                     <i class="mdi-content-send right"></i>
@@ -63,7 +68,8 @@
             </div>
             <br><br>
             <div>
-                <a href="{{ url('/auth/login') }}" class="waves-effect waves-light btn-large lime accent-4 blue-text text-darken-2"> <i class="mdi-action-perm-identity left"></i>Login</a>
+                <a href="{{ url('/auth/login') }}" class="waves-effect waves-light btn-large lime accent-4 blue-text text-darken-2">
+                    <i class="mdi-action-perm-identity left"></i>Login</a>
             </div>
 
         </div>

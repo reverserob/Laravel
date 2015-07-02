@@ -33,7 +33,59 @@ Route::get('/frontend', function() {
 
   });
 
+// Route ARTICOLI Rob's BLog
+Route::get('articolo/{slug}', function($slug){
 
+    $categories = \App\Category::all();
+
+    $article = \App\Article::with('categories', 'user')->where('slug', '=', $slug)->first();
+
+    return view('frontend.article', compact('categories', 'article'));
+});
+
+
+// ROUTE to AUTORE Rob's Blog
+Route::get('autore/{slug}', function($slug){
+
+    $categories = \App\Category::all();
+
+    $author = \App\User::where('slug', '=', $slug)->first();
+
+    $articles = $author->articles()->where('published_at', '<=', 'NOW()')->where('is_published', '=', true)->orderBy('published_at', 'DESC')->paginate(5);
+
+    return view('frontend.author', compact('categories', 'author', 'articles'));
+});
+
+
+// Route CATEGORIA Rob's Blog
+Route::get('categoria/{slug}', function($slug){
+
+    $categories = \App\Category::all();
+
+    $currentCategory = \App\Category::where('slug', '=',
+
+        $slug)->first(); $articles = $currentCategory->articles()->where('published_at', '<=', 'NOW()')->where('is_published', '=', true)->orderBy('published_at', 'DESC')->paginate(5);
+
+    return view('frontend.category', compact('categories', 'currentCategory', 'articles'));
+
+});
+
+/*
+
+// ROUTE to Controllers/FrontendController Rob's Blog
+Route::controller('frontend', 'FrontendController');
+
+
+
+
+// ROUTE to Backend Rob's Blog
+Route::controller('backend', 'Backend\MainController');
+
+*/
+
+Route::get('/backend', function () {
+    return view('backend.login');
+});
 
 
 
