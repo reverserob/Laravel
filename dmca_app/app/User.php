@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use App\Notice;
+
+
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
@@ -32,4 +35,25 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+
+    /**
+     *
+     *
+     *A user may create many DMCA notices.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     *
+     *
+     *
+     *
+     */
+    public function notices()
+    {
+
+        return $this->hasMany('App\Notice')->latest()->where('content_removed', 0);
+
+    }
+
+
 }

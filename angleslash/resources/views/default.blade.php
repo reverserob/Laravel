@@ -7,8 +7,7 @@
     <!-- Include Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="/js/main.js"></script>
+
     <link rel="stylesheet" href="/css/app.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -62,15 +61,15 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Boo Yeah!</h4>
+                <h4 class="modal-title">HOLAA!</h4>
             </div>
             <div class="modal-body">
                 <h2>Join Angleslash</h2>
 
                 <p class="lead">In order to vote, you must be signed in!</p>
 
-                <div class="lead text-center"><a href="{{ url('/signup') }}">Register</a> or <a
-                            href="{{ url('/signin') }}">Login</a></div>
+                <div class="lead text-center"><a href="{{ URL::to('auth/register') }}">Register</a> or <a
+                            href="{{ URL::to('auth/login') }}">Login</a></div>
             </div>
             <div class="modal-footer">
                 <Angleslash />
@@ -82,5 +81,9 @@
 </div>
 <!-- /.modal -->
 
+
+<script src="/js/main.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>

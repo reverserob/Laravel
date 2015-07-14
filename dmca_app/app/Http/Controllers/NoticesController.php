@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Provider;
 use App\Http\Templates;
@@ -9,6 +11,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Facades\Mail;
+use App\Notice;
+use Illuminate\Http\RedirectResponse;
+
 
 class NoticesController extends Controller
 {
@@ -23,6 +29,8 @@ class NoticesController extends Controller
 
         $this->middleware('auth');
 
+        parent::__construct();
+
     }
 
 
@@ -35,7 +43,11 @@ class NoticesController extends Controller
     public function index()
     {
 
-        return 'all notices';
+        //return Notice::all();
+
+       $notices = $this->user->notices;
+
+        return view ('notices.index', compact('notices'));
 
     }
 
@@ -66,30 +78,69 @@ class NoticesController extends Controller
      * Ask the user to confirm the DMCA that Will be delivered.
      *
      * @param Requests\PrepareNoticeRequest $request
-     * @param Guard                 $auth
+     * @param Guard
      * @return \Response
      *
      */
 
-    public function confirm(Requests\PrepareNoticeRequest $request, Guard $auth )
+    public function confirm(Requests\PrepareNoticeRequest $request )
     {
-        $template=$this->compileDmcaTemplate($data=$request->all(), $auth);
+        $template=$this->compileDmcaTemplate($data = $request->all());
 
        session()->flash('dmca', $data);
 
         return view('notices.confirm', compact('template'));
     }
 
+    /**
+     *
+     *Store a new DMCA notice.
+     *
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector.
+     *
+     */
+
 
     public function store(Request $request)
     {
 
-      $data = session()->get('dmca');
+       $notice= $this->createNotice($request);
 
-      $notice=Notice::open($data)->useTemplate($request)->input('template');
 
-       // return Auth::user()->notices();
+        Mail::queue(['text'=>'emails.dmca'], compact('notice'), function($message) use($notice){
 
+            $message->from($notice->getOwnerEmail())
+                    ->to($notice->getRecipientEmail())
+                    ->subject('DMCA Notice');
+
+        });
+
+        flash('Your DMCA notice has been delivered!');
+
+        return redirect('notices');
+
+
+
+    }
+
+    /**
+     *
+     *
+     * @param $noticeId
+     * @param Request $request
+     * @return mixed
+     *
+     */
+    public function update($noticeId, Request $request)
+    {
+
+        $isRemoved = $request ->has('content_removed');
+
+        Notice::findOrFail($noticeId)
+            ->update(['content_removed' => $isRemoved]);
 
 
     }
@@ -101,7 +152,7 @@ class NoticesController extends Controller
      * Compile DMCA Template from the form data.
      *
      * @param $data
-     * @param Guard $auth
+
      *
      * @return  mixed
      *
@@ -109,17 +160,40 @@ class NoticesController extends Controller
      *
      */
 
-    public function compileDmcaTemplate($data, Guard $auth)
+    public function compileDmcaTemplate($data)
     {
 
         $data=$data+[
 
-                'name'=> $auth->user()->name,
-                'email'=> $auth->user()->email,
+                'name'=> $this->user->name,
+                'email'=> $this->user->email,
 
             ];
 
         return view()->file(app_path('Http/Templates/dmca.blade.php'), $data);
+    }
+
+    /**
+     * Create and persist a new DMCA notice.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function createNotice(Request $request)
+    {
+        $notice = session()->get('dmca')+['template' => $request -> input('template')];
+
+        //  return \Request::input('template');
+
+      //  $notice = Notice::open($data)
+      //      ->useTemplate($request->input('template'));
+
+       $notice = $this->user->notices()->create($notice);
+
+
+        return $notice;
+
     }
 
 }
