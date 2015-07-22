@@ -54,7 +54,7 @@ class TasksController extends Controller
         $this->validate($request, [
             'nome' => 'required',
             'cognome' => 'required',
-            'data_ora' => 'required',
+            'ora' => 'required',
             'prenotato_da' => 'required',
             ]);
 

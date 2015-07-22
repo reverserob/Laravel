@@ -6,35 +6,28 @@
     <p class="lead">
 
         <?php $d=strtotime("yesterday");
-        echo date("d-m-Y", $d)?>
+        echo "Ieri ".date("d-m-Y", $d)?>
             <a href="{{ route('tasks.index') }}"> <span class="glyphicon glyphicon-chevron-left"></span></a>
 
        Oggi {{ Carbon\Carbon::now('Europe/Rome')}}
 
             <a href="{{ route('tasks.index') }}"> <span class="glyphicon glyphicon-chevron-right"></span></a>
        <?php $d=strtotime("tomorrow");
-        echo date("d-m-Y", $d)?>
+        echo "Domani ".date("d-m-Y", $d)?>
             <span class="glyphicon glyphicon-chevron-right"></span>
             <span class="glyphicon glyphicon-chevron-right"></span>
             <?php $d=strtotime("+3 Months");
             echo "+3 Mesi da oggi - ".date("d-m-Y", $d) . "<br>";
             ?>
-
-
-
-
     </p>
 
     <hr>
-
-
-
 
     <table class="table table-striped table-bordered">
         <thead>
         <tr>
             <td>ID</td>
-            <td>Data e Ora</td>
+            <td>Ora</td>
             <td>Nome</td>
             <td>Cognome</td>
             <td>Visita</td>
@@ -53,7 +46,7 @@
         @foreach($tasks as $task)
             <tr>
                 <td>{{ $task->id }}</td>
-                <td>{{ $task->data_ora }}</td>
+                <td>{{ $task->ora }}</td>
                 <td>{{ $task->nome }}</td>
                 <td>{{ $task->cognome }}</td>
                 <td>{{ $task->visita }}</td>
@@ -62,13 +55,9 @@
                 <td>{{ $task->rx_prima}}</td>
                 <td>{{ $task->rx_dopo }}</td>
                 <td>{{ $task->prenotato_da }}</td>
-                <td>
-                    <a href="{{ route('tasks.edit', $task->id,$task->nome, $task->cognome) }}" class="btn btn-primary">Modifica</a>
-
-                </td>
-
+                <td><a href="{{ route('tasks.edit', $task->id,$task->nome, $task->cognome) }}" class="btn btn-primary">Modifica</a></td>
             </tr>
-@endforeach
+        @endforeach
 
 
         </tbody>

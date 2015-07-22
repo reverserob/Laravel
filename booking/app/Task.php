@@ -10,7 +10,7 @@ class Task extends Model
 
     protected $fillable = [
         'n_prenotazione',
-        'data_ora',
+        'ora',
         'nome',
         'cognome',
         'visita',

@@ -15,7 +15,7 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
 
             $table->increments('id');
-            $table->dateTime('data_ora');
+            $table->time('ora');
             $table->string('nome');
             $table->string('cognome');
             $table->string('visita');

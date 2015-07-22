@@ -13,22 +13,13 @@
     </p>
 
     <hr>
-    <div>
-        {!! Form::open(array('action'=>'TasksController@show', 'method' => 'post')) !!}
-        {!! Form::submit('Mostra', ['class' => 'btn btn-small btn-success']) !!}
-        {!! Form::close() !!}
 
-        {!! Form::open(array('action'=>'TasksController@edit', 'method' => 'post')) !!}
-        {!! Form::submit('Modifica', ['class' => 'btn btn-small btn-danger']) !!}
-        {!! Form::close() !!}
-    </div>
-    <hr>
 
     <table class="table table-striped table-bordered">
         <thead>
         <tr>
             <td>ID</td>
-            <td>Data e Ora</td>
+            <td>Ora</td>
             <td>Nome</td>
             <td>Cognome</td>
             <td>Visita</td>
@@ -40,60 +31,27 @@
             <td>Action</td>
         </tr>
         </thead>
-
-
         <tbody>
-
         @for ($i = 0; $i <=35; $i++)
             {!! Form::open(array('action'=>'TasksController@store', 'method' => 'post')) !!}
             <tr>
-                <td>
-                    {{ $i }}</td>
-                <td>
-                    {!! Form::input('date', 'data_ora', Carbon\Carbon::now('Europe/Rome'), ['class' => 'form-control']) !!}
-                </td>
-
-                <td>
-                    {!! Form::text('nome', null, ['class' => 'form-control']) !!}  </td>
-                </td>
-
-                <td>
-                    {!! Form::text('cognome', null, ['class' => 'form-control']) !!}</td>
-
-                </td>
-                <td>
-                    {!! Form::checkbox('visita', 'si') !!}
-                </td>
-                <td>
-                    {!! Form::checkbox('medicazione', 'si') !!}
-                </td>
-                <td>
-                    {!! Form::checkbox('sala_gessi', 'si') !!}
-                </td>
-                <td>
-                    {!! Form::checkbox('rx_prima', 'si') !!}
-                </td>
-                <td>
-                    {!! Form::checkbox('rx_dopo', 'si') !!}
-                </td>
-                <td>
-
-                    {!! Form::text('prenotato_da', null, ['class' => 'form-control']) !!}</td>
-                </td>
+                <td>{{ $i }}</td>
+                <td><input class="form-control" name="ora" type="time" required></td>
+                <td>{!! Form::text('nome', null, ['class' => 'form-control']) !!}  </td>
+                <td>{!! Form::text('cognome', null, ['class' => 'form-control']) !!}</td>
+                <td>{!! Form::checkbox('visita', 'si') !!}</td>
+                <td>{!! Form::checkbox('medicazione', 'si') !!}</td>
+                <td>{!! Form::checkbox('sala_gessi', 'si') !!}</td>
+                <td>{!! Form::checkbox('rx_prima', 'si') !!}</td>
+                <td>{!! Form::checkbox('rx_dopo', 'si') !!}</td>
+                <td>{!! Form::text('prenotato_da', null, ['class' => 'form-control']) !!}</td>
                 <td>
                     {!! Form::submit('Salva', ['class' => 'btn btn-small btn-success']) !!}
                     {!! Form::close() !!}
-
-
                 </td>
-
-
             </tr>
-
         @endfor
-
         </tbody>
-
     </table>
 
 
