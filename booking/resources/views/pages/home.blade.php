@@ -1,17 +1,10 @@
-@extends('layouts.master')
+@extends('app')
 
 @section('content')
 
-    <h1>Prenotazioni</h1>
-    <p class="lead">
+    <h1 id="title">Benvenuti nel software di Prenotazioni</h1>
 
 
 
-    </p>
-
-    <hr>
-
-    <a href="{{ route('tasks.index') }}" class="btn btn-info">Tutte le Prenotazioni</a>
-    <a href="{{ route('tasks.create') }}" class="btn btn-primary">Nuova Prenotazione</a>
 
 @stop

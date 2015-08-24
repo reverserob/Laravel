@@ -6233,3 +6233,25 @@ label,
 }
 
 table tr td{text-align: center;}
+
+#search{  position: absolute;
+           top: 170px;
+            right: 80px;}
+
+#36{
+    background:#FF0000;
+    }
+
+#title{
+    text-align: center;
+    color: #008AB8;
+}
+
+#footer{
+    text-align: center;
+}
+
+.title1{
+    text-align: center;
+
+}

@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers;
 
+
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use Input;
 use App\Task;
-
+use App\Overbooking;
 use Redirect;
-
+use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+
 class TasksController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -21,10 +30,87 @@ class TasksController extends Controller
      */
     public function index()
     {
+        // controllo campo overbooking -- inserimento predisposto per user Ortopedia
 
-        $tasks = Task::all();
+        $value=array('class' => 'form-control','required');
 
-        return view('tasks.index')->withTasks($tasks);
+        if(!Auth::user()->admin)
+        {
+            $value=array('class' => 'form-control', 'readonly');
+        }
+
+
+
+
+
+        // Campo ricerca --- recupera prenotazioni per Cognome
+        if ((isset($_GET['search']) && $_GET['search']!='')) {
+
+            $query = Input::get('search');
+
+            $tasks = Task::where('cognome', 'LIKE', $query.'%' )
+                ->orderBy('cognome', 'asc')
+                ->get();
+
+            $overbooking = Overbooking::where('cognome', 'LIKE', '%'.$query.'%' )->get();
+
+            // controllo esistenza record cercato
+            if ($tasks->count() > 0) {
+                $none='<h3> Risultato della ricerca: ' . $query . ' </h3>';
+                return view('tasks.search', compact('tasks', 'query', 'overbooking', 'none'));
+            } else {
+
+                   $none= '<h3> Nessun Risultato Trovato per: ' . $query . ' </h3>';
+                return view('tasks.search', compact('tasks', 'query', 'overbooking', 'none'));
+
+            }
+
+
+        }
+
+        //conta righe table
+        $counter = 1;
+
+
+        //variabile OGGI index
+        $day = Carbon::now('Europe/Rome')->format('d/m/Y');
+
+        //Query OGGI -- Formattazione per inserimento data nel DB
+        $today1=Carbon::now('Europe/Rome')->format('Y-m-d');
+
+
+        //query prenotazioni odierne
+        $tasks = Task::where('data', '=', $today1 )
+            ->orderBy('cognome','asc')
+            ->get();
+
+        //query prenotazioni di overbooking odierne
+        $overbooking = Overbooking::where('data', '=', $today1 )->get();
+
+
+
+
+        // DATEPICKER --- recupera prenotazioni dal calendario
+        if((isset($_GET['data']))&& $_GET['data']!=''){
+            $query = Input::get('data');
+            $data = date_format(date_create_from_format('d/m/Y',$query), 'Y-m-d');
+
+
+            $tasks = Task::where('data', 'LIKE', '%'.$data.'%' )
+                ->get();
+            $overbooking = Overbooking::where('data', 'LIKE', '%'.$data.'%' )
+                ->get();
+
+            $day=Input::get('data');
+
+
+            return view('tasks.index', compact('tasks', 'today','day', 'yesterday', 'tomorrow', 'counter', 'overbooking','value'));
+
+        }
+
+
+        // view predefinita - INDEX
+        return view('tasks.index', compact('tasks', 'day', 'yesterday', 'tomorrow','counter','today', 'overbooking', 'value'));
 
 
     }
@@ -36,8 +122,10 @@ class TasksController extends Controller
      */
     public function create()
     {
+
         $tasks = Task::all();
         return view('tasks.create')->withTasks($tasks);
+
     }
 
     /**
@@ -49,26 +137,47 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
-       // dd($request->all());
+        // dd($request->all());
 
         $this->validate($request, [
             'nome' => 'required',
             'cognome' => 'required',
-            'ora' => 'required',
-            'prenotato_da' => 'required',
-            ]);
+
+        ]);
+
 
         $input = $request->all();
 
-        Task::create($input);
+        // condizioni creazione nuova prenotazione
 
-       // Session::flash('flash_message', 'Task successfully added!');
+        if(isset($_POST['prenotazioni'])){
+            $task=Task::create($input);
 
-       // return redirect()->back();
+            return view('tasks.show')->withTask($task);
 
-        return redirect()->route('tasks.index');
+        }
 
-    }
+        // condizioni creazione nuova prenotazione di overbooking
+            if (isset($_POST['overbooking']) ) {
+
+               Overbooking::create($input);
+
+                return redirect()->route('tasks.index');
+
+                } else {
+                    echo 'Prenotazione non autorizzata';
+                }
+
+                // Session::flash('flash_message', 'Task successfully added!');
+
+                // return redirect()->back();
+
+
+
+
+        }
+
+
 
     /**
      * Display the specified resource.
@@ -76,12 +185,19 @@ class TasksController extends Controller
      * @param  int  $id
      * @return Response
      */
+
+
     public function show($id)
     {
-        $task = Task::findOrFail($id);
 
-        return view('tasks.show')->withTask($task);
+
+            $task = Task::findOrFail($id);
+
+            return view('tasks.show')->withTask($task);
+
+
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -92,9 +208,19 @@ class TasksController extends Controller
     public function edit($id)
     {
 
-        $task = Task::findOrFail($id);
+    // condizioni di modifica prenotazione di overbooking
+        if(isset($_GET['overedit']))
+        {
+            $over = Overbooking::findOrFail($id);
+            return view('tasks.edit')->withOver($over);
 
-        return view('tasks.edit')->withTask($task);
+        }else{
+
+            // condizioni di modifica prenotazione
+            $task = Task::findOrFail($id);
+            return view('tasks.edit')->withTask($task);
+        }
+
     }
 
     /**
@@ -107,24 +233,36 @@ class TasksController extends Controller
 
     public function update($id, Request $request)
     {
-        $task = Task::findOrFail($id);
 
-        $this->validate($request, [
-            'id' => 'required',
-            'nome' => 'required',
-            'cognome' => 'required',
-            'prenotato_da' => 'required',
-        ]);
+        // condizioni di aggiornamento prenotazione di overbooking
 
-        $input = $request->all();
+        if(isset($_POST['overupdate']))
+        {
+            $over = Overbooking::findOrFail($id);
 
-        $task->fill($input)->save();
+            $input = $request->all();
 
-      //  Session::flash('flash_message', 'Task successfully added!');
+            $over->fill($input)->save();
 
-       // return redirect()->back();
+            //  Session::flash('flash_message', 'Task successfully added!');
+            // return redirect()->back();
 
-        return view('tasks.show')->withTask($task);
+            return redirect()->route('tasks.index');
+        }else{
+
+            // condizioni di aggiornamento prenotazione
+
+            $task = Task::findOrFail($id);
+
+            $input = $request->all();
+
+            $task->fill($input)->save();
+
+            //  Session::flash('flash_message', 'Task successfully added!');
+            // return redirect()->back();
+
+            return view('tasks.show')->withTask($task);
+        }
     }
 
     /**
@@ -138,12 +276,30 @@ class TasksController extends Controller
 
     public function destroy($id)
     {
-        $task = Task::findOrFail($id);
+        // condizioni di eliminazione prenotazione
 
-        $task->delete();
 
-       // Session::flash('flash_message', 'Task successfully deleted!');
 
-        return redirect()->route('tasks.index');
+            $task = Task::findOrFail($id);
+            $task->delete();
+
+
+
+
+            return redirect()->route('tasks.index');
+
+
     }
+
+
 }
+/*
+$task = Task::findOrFail($id);
+$d=$task->data;
+$taskd=Task::where('data', 'LIKE', $d )
+    ->get();
+
+
+
+return view('tasks.index',compact($task,$d));
+*/
