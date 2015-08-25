@@ -4,7 +4,8 @@ Booking Web Application Based On Laravel PHP Framework
 
 ================================================================================
 
-![Booking APP Preview](https://git.olomedia.it/olocup/prenotazione-ortopedia/raw/master/public/img/schermata.png "Prenotazioni Ospedaliere Olomedia")
+
+![Booking APP Preview](https://git.olomedia.it/olocup/prenotazione-ortopedia/raw/master/public/img/schermata.png "Prenotazioni Ospedaliere")
 
 ![Booking APP Preview](https://git.olomedia.it/olocup/prenotazione-ortopedia/raw/master/public/img/screenshot.png "Prenotazioni Ospedaliere")
 

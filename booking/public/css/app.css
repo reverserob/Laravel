@@ -6253,5 +6253,11 @@ table tr td{text-align: center;}
 
 .title1{
     text-align: center;
+    color: #008AB8;
+
+}
+.title2{
+    text-align: center;
+    text-decoration: underline;
 
 }
