@@ -54,7 +54,7 @@
         <td>{{ $task->rx_dopo }}</td>
         <td>{{ $task->prenotato_da }}</td>
         <td>
-            @if(Auth::user()->edit === 1)
+            @if(Auth::user()->edit)
                 <a href="{{ route('tasks.edit', $task->id,$task->nome, $task->cognome) }}" class="btn btn-primary">Modifica</a>
             @elseif(Auth::user()->name ==  $task->prenotato_da)
                 <a href="{{ route('tasks.edit', $task->id,$task->nome, $task->cognome) }}" class="btn btn-primary">Modifica</a>
@@ -78,7 +78,7 @@
             <td>{{ $over->rx_dopo }}</td>
             <td>{{$over->prenotato_da }}</td>
             <td>
-                @if(Auth::user()->admin !== 1)
+                @if(!Auth::user()->admin)
 
                     {!! Form::submit('X', ['class' => 'btn btn-danger', 'name'=>'overedit']) !!}
 
