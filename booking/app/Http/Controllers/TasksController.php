@@ -52,7 +52,7 @@ class TasksController extends Controller
                 ->orderBy('cognome', 'asc')
                 ->get();
 
-            $overbooking = Overbooking::where('cognome', 'LIKE', '%'.$query.'%' )->get();
+            $overbooking = Overbooking::where('cognome', 'LIKE', $query.'%' )->get();
 
             // controllo esistenza record cercato
             if ($tasks->count() > 0) {
@@ -109,11 +109,7 @@ class TasksController extends Controller
 
         }
 
-        if (isset($_GET['print'])) {
 
-            $task = Task::all();
-            return view('tasks.htmltopdf', compact('task', 'day','counter', 'overbooking'));
-        }
 
 
         // view predefinita - INDEX
@@ -197,6 +193,12 @@ class TasksController extends Controller
     public function show($id)
     {
 
+        if (isset($_GET['print'])) {
+
+            $task = Task::findOrFail($id);
+
+            return view('tasks.htmltopdf', compact('tasks', 'day','counter', 'overbooking'));
+        }
 
             $task = Task::findOrFail($id);
 

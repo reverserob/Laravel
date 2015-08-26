@@ -3,9 +3,13 @@
 @section('content')
 
     <h1 class="title1"> Prenotazioni del {{ $day }}</h1>
-
-
-
+<!--
+    <div>
+        {!! Form::open(array('action'=>'TasksController@index', 'method' => 'get', 'class'=>'inline-form')) !!}
+        {!! Form::submit('Stampa', ['class' => 'btn btn-success', 'name'=>'print']) !!}
+        {!! Form::close()!!}
+    </div>
+-->
     <hr>
 
         <div class="container">
