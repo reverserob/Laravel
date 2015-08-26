@@ -56,12 +56,13 @@ class TasksController extends Controller
 
             // controllo esistenza record cercato
             if ($tasks->count() > 0) {
-                $none='<h3> Risultato della ricerca: ' . $query . ' </h3>';
-                return view('tasks.search', compact('tasks', 'query', 'overbooking', 'none'));
+
+                 $string='<h3> Risultato della ricerca: ' . $query . ' </h3><hr>';
+                return view('tasks.search', compact('tasks', 'query', 'overbooking', 'none','string'));
             } else {
 
-                   $none= '<h3> Nessun Risultato Trovato per: ' . $query . ' </h3>';
-                return view('tasks.search', compact('tasks', 'query', 'overbooking', 'none'));
+                   $none= '<h3> Nessun Risultato Trovato per: ' . $query . ' </h3><hr>';
+                return view('tasks.search', compact('tasks', 'query', 'overbooking', 'none','string'));
 
             }
 
@@ -106,6 +107,12 @@ class TasksController extends Controller
 
             return view('tasks.index', compact('tasks', 'today','day', 'yesterday', 'tomorrow', 'counter', 'overbooking','value'));
 
+        }
+
+        if (isset($_GET['print'])) {
+
+            $task = Task::all();
+            return view('tasks.htmltopdf', compact('task', 'day','counter', 'overbooking'));
         }
 
 

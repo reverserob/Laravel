@@ -3,11 +3,8 @@
 @section('content')
 
     <h1 class="title1"> Prenotazioni del {{ $day }}</h1>
-    <div>
-        {!! Form::open()!!}
-        {!! Form::submit('Stampa', ['class' => 'btn btn-success', 'name'=>'print']) !!}
-        {!! Form::close()!!}
-    </div>
+
+
 
     <hr>
 
