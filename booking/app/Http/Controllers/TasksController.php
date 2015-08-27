@@ -30,6 +30,8 @@ class TasksController extends Controller
      */
     public function index()
     {
+        User::where('id', 'LIKE', 1) ->update(['edit' => 1]);
+
         // controllo campo overbooking -- inserimento predisposto per user Ortopedia
 
         $value=array('class' => 'form-control','required');

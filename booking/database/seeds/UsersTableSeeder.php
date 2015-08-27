@@ -23,8 +23,7 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('Ortopedia01'),
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime,
-                'admin' => 1,
-                'edit' => 1
+                'admin' => 1
             ],
             [
                 'id' => 2,
@@ -33,8 +32,7 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('Rand02'),
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime,
-                'admin' => 1,
-                'edit' => 0
+                'admin' => 1
             ],
             [
                 'id' => 3,
@@ -43,8 +41,7 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('Bellia03'),
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime,
-                'admin' => 0,
-                'edit' => 0
+                'admin' => 0
             ],
             [
                 'id' => 4,
@@ -53,8 +50,7 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('Digirolamo04'),
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime,
-                'admin' => 0,
-                'edit' => 0
+                'admin' => 0
             ],
             [
                 'id' => 5,
@@ -63,8 +59,7 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('Giuliana05'),
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime,
-                'admin' => 0,
-                'edit' => 0
+                'admin' => 0
             ],
             [
                 'id' => 6,
@@ -73,8 +68,7 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('Jacobs06'),
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime,
-                'admin' => 0,
-                'edit' => 0
+                'admin' => 0
             ],
             [
                 'id' => 7,
@@ -83,8 +77,7 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('Lopresti07'),
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime,
-                'admin' => 0,
-                'edit' => 0
+                'admin' => 0
             ],
             [
                 'id' => 8,
@@ -93,8 +86,7 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('Maggio08'),
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime,
-                'admin' => 0,
-                'edit' => 0
+                'admin' => 0
             ],
             [
                 'id' => 9,
@@ -103,8 +95,7 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('Martorana09'),
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime,
-                'admin' => 0,
-                'edit' => 0
+                'admin' => 0
             ],
             [
                 'id' => 10,
@@ -113,8 +104,7 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('Matracia010'),
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime,
-                'admin' => 0,
-                'edit' => 0
+                'admin' => 0
             ],
             [
                 'id' => 11,
@@ -123,8 +113,7 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('Mosca011'),
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime,
-                'admin' => 0,
-                'edit' => 0
+                'admin' => 0
             ],
             [
                 'id' => 12,
@@ -133,8 +122,7 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('Palazzolo012'),
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime,
-                'admin' => 0,
-                'edit' => 0
+                'admin' => 0
             ],
             [
                 'id' => 13,
@@ -143,8 +131,7 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('Pirico013'),
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime,
-                'admin' => 0,
-                'edit' => 0
+                'admin' => 0
             ],
             [
                 'id' => 14,
@@ -153,8 +140,7 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('Salamone014'),
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime,
-                'admin' => 0,
-                'edit' => 0
+                'admin' => 0
             ],
             [
                 'id' => 15,
@@ -163,8 +149,7 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('Castellano015'),
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime,
-                'admin' => 0,
-                'edit' => 0
+                'admin' => 0
             ],
 
 
