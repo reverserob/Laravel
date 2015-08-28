@@ -2,7 +2,15 @@
 
 @section('content')
 
-    <h1 class="title1"> Prenotazioni del {{ $day }}</h1>
+
+    <div class="container-fluid">
+        <div class="row">
+
+              <div> <img src="../img/logo_palm.png" alt="olomediat" /></div>
+
+             <h1 class="title1"> Prenotazioni del {{ $day }}</h1></div>
+
+    </div>
 <!--
     <div>
         {!! Form::open(array('action'=>'TasksController@index', 'method' => 'get', 'class'=>'inline-form')) !!}
@@ -16,15 +24,17 @@
             <div class="row">
                 <div class='col-sm-3'>
                     <div class="inline-form">
-                        {!! Form::open(array('action'=>'TasksController@index', 'method' => 'get', 'class'=>'inline-form')) !!}
+                        {!! Form::open(array('action'=>'TasksController@index', 'method' => 'get', 'class'=>'inline-form', 'id'=>'frmDate')) !!}
 
                         <div class='input-group date' id='datepicker'>
 
                             <input type='text' id="datepicker-el" class="form-control" placeholder="{{ $day }}" name="data" required/>
-                            <span class="input-group-addon">
-                                {!! Form::button('<i class="glyphicon glyphicon-arrow-right"></i>', array('type' => 'submit', 'class' => 'specialButton')) !!}
-                                {!! Form::close() !!}
-                            </span>
+                            <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" id="btnPicker">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </button>
+                    </span>
+                            {!! Form::close() !!}
                         </div>
 
 

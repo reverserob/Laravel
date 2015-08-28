@@ -72,8 +72,17 @@
 
         $( "#datepicker-el" ).datepicker({
             language: 'it',
-            orientation: 'bottom'
+            orientation: 'bottom',
+            onSelect: function (dateText, inst) {
+                $('#frmDate').submit();
+            }
         });
+
+        $('#btnPicker').click(function () {
+            //alert('clicked');
+            $('#datepicker-el').datepicker('show');
+        });
+
     });
 </script>
 

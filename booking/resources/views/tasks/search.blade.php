@@ -4,6 +4,7 @@
 
     @if(!empty($none))
 
+
         {!!$none!!}
 
 
@@ -19,6 +20,7 @@
 
         @stop
 @else
+
     {!!$string!!}
 
 <table class="table table-striped table-bordered">

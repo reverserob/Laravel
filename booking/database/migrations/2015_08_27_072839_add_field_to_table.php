@@ -13,12 +13,20 @@ class AddFieldToTable extends Migration
     public function up()
     {
         Schema::table('users',function(Blueprint $table){
-            $table->tinyInteger('edit')->default('0');
+            $table->tinyInteger('edit')->default(0);
         });
+
+        App\User::where('id', 'LIKE', 1) ->update(['edit' => 1]);
 
 
 
     }
+
+
+
+
+
+
 
     /**
      * Reverse the migrations.

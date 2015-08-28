@@ -6235,7 +6235,7 @@ label,
 table tr td{text-align: center;}
 
 #search{  position: absolute;
-           top: 170px;
+           top: 250px;
             right: 80px;}
 
 #36{
@@ -6252,7 +6252,9 @@ table tr td{text-align: center;}
 }
 
 .title1{
-    text-align: center;
+    position: absolute;
+    top: 120px;
+    right: 200px;
     color: #008AB8;
 
 }
@@ -6260,4 +6262,12 @@ table tr td{text-align: center;}
     text-align: center;
     text-decoration: underline;
 
+
+}
+
+.title3{
+    position: absolute;
+    top: 120px;
+    right: 300px;
+    color: #008AB8;
 }
